@@ -1,0 +1,21 @@
+INSERT INTO TELEFONE_TABLE (numero) VALUES ('99999-1111');
+INSERT INTO TELEFONE_TABLE (numero) VALUES ('99999-2222');
+INSERT INTO TELEFONE_TABLE (numero) VALUES ('99999-3333');
+INSERT INTO TELEFONE_TABLE (numero) VALUES ('99999-4444');
+INSERT INTO TELEFONE_TABLE (numero) VALUES ('99999-5555');
+INSERT INTO TELEFONE_TABLE (numero) VALUES ('99999-6666');
+INSERT INTO TELEFONE_TABLE (numero) VALUES ('99999-7777');
+INSERT INTO TELEFONE_TABLE (numero) VALUES ('99999-8888');
+INSERT INTO TELEFONE_TABLE (numero) VALUES ('99999-9999');
+INSERT INTO TELEFONE_TABLE (numero) VALUES ('99999-0000');
+
+INSERT INTO APOSTADOR_TABLE (nome, endereco, telefone_id) VALUES ('Gilson', 'Areias', 1);
+INSERT INTO APOSTADOR_TABLE (nome, endereco, telefone_id) VALUES ('Guilly', 'Boa Viagem', 2);
+INSERT INTO APOSTADOR_TABLE (nome, endereco, telefone_id) VALUES ('Bruna', 'Setubal', 3);
+INSERT INTO APOSTADOR_TABLE (nome, endereco, telefone_id) VALUES ('Karol', 'Graças', 4);
+INSERT INTO APOSTADOR_TABLE (nome, endereco, telefone_id) VALUES ('Petra', 'Piedade', 5);
+INSERT INTO APOSTADOR_TABLE (nome, endereco, telefone_id) VALUES ('Wderlan', 'Lagoa de Itaenga', 6);
+INSERT INTO APOSTADOR_TABLE (nome, endereco, telefone_id) VALUES ('Marcos', 'Cabo', 7);
+INSERT INTO APOSTADOR_TABLE (nome, endereco, telefone_id) VALUES ('Breno', 'Boa Viagem', 8);
+INSERT INTO APOSTADOR_TABLE (nome, endereco, telefone_id) VALUES ('Matheus', 'Madalena', 9);
+INSERT INTO APOSTADOR_TABLE (nome, endereco, telefone_id) VALUES ('Emanoel', 'Imbiribeira', 10);
