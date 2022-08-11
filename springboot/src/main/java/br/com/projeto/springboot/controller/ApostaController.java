@@ -1,8 +1,12 @@
 package br.com.projeto.springboot.controller;
 
-import br.com.projeto.springboot.model.Apostador;
-import br.com.projeto.springboot.service.ApostaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+
+import br.com.projeto.springboot.dto.ApostadorDTO;
+import br.com.projeto.springboot.model.Apostador;
+import br.com.projeto.springboot.service.ApostaService;
 
 @RestController
 @RequestMapping("/api/v1/aposta")
@@ -20,6 +28,7 @@ public class ApostaController {
 
     @PostMapping()
     @Transactional
+    @CacheEvict(value = "listaApostadores", allEntries = true)
     public ResponseEntity<Object> salvarApostador(@RequestBody Apostador apostador){
         Optional<Apostador> optionalApostador = apostaService.getApostador(apostador.getNome());
 
@@ -27,14 +36,20 @@ public class ApostaController {
             return ResponseEntity.status(HttpStatus.CREATED).body(apostaService.salvarApostador(apostador));
         }
 
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("Não foi possível salvar um novo apostador!");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("O apostador já está cadastrado!");
 
     }
 
     @GetMapping
-    public List<Apostador> listarApostadores(){
-        return this.apostaService.listarApostadores();
+    @Cacheable(value = "listaApostadores")
+    public Page<ApostadorDTO> getApostadores(int pageNumber, int pageSize){
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return ApostadorDTO.converter(apostaService.listarApostadores(pageable));
     }
+
+    /*public List<Apostador> listarApostadores(){
+        return this.apostaService.listarApostadores();
+    }*/
 
     @GetMapping("/{id}")
     public Optional<Apostador> buscarPorId(@PathVariable Long id){
@@ -47,6 +62,7 @@ public class ApostaController {
     }
 
     @PutMapping("/{id}")
+    @CacheEvict(value = "listaApostadores", allEntries = true)
     public ResponseEntity<Object> atualizarApostador(@PathVariable Long id, @RequestBody Apostador apostador){
 
         Optional<Apostador> optionalApostador = apostaService.buscarPorId(id);
@@ -61,7 +77,25 @@ public class ApostaController {
     }
 
     @DeleteMapping("{id}")
+    @CacheEvict(value = "listaApostadores", allEntries = true)
     public void deleteApostador(@PathVariable Long id){
         this.apostaService.delete(id);
+    }
+
+    @GetMapping(value= "/sortear", produces = {"application/json"})
+    public Optional<Apostador> sortear(){
+        Apostador vencedor = null;
+        List<Apostador> apostadores = apostaService.listarApostadores();
+        int tamanho = apostadores.size();
+        int numSorteado = (int) (1 + (Math.random() * tamanho));
+
+        for(Apostador encontrar: apostadores){
+            if(numSorteado == encontrar.getId()){
+                vencedor = encontrar;
+                break;
+            }
+        }
+
+        return Optional.ofNullable(vencedor);
     }
 }

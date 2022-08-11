@@ -3,6 +3,8 @@ package br.com.projeto.springboot.service;
 import br.com.projeto.springboot.model.Apostador;
 import br.com.projeto.springboot.repository.ApostaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +27,10 @@ public class ApostaService {
 
     public List<Apostador> listarApostadores() {
         return this.apostaRepository.findAll();
+    }
+
+    public Page<Apostador> listarApostadores(Pageable paginacao){
+        return this.apostaRepository.findAll(paginacao);
     }
 
     public Optional<Apostador> buscarPorId(Long id) {
