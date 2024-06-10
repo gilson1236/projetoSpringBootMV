@@ -15,9 +15,6 @@ aleatoriamente. Feito utilizando o java, junto ao Spring Boot.
   * Banco de dados H2 <br>
   * Swagger <img align="center" alt="Swagger" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/swagger/swagger-original.svg"><br>
   * Hibernate <img align="center" alt="Hibernate" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/hibernate/hibernate-original.svg"><br>
-  
-  * Pagination,
-  * Uso de boas práticas de MVC (Padrão Model, View e Controller).
 </div>
 
 ### Alguns recursos disponíveis na API proposta
