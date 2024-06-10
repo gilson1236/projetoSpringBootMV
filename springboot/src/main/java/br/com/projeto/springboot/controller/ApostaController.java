@@ -1,5 +1,6 @@
 package br.com.projeto.springboot.controller;
 
+import br.com.projeto.springboot.dto.PageApostadorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -12,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,14 +46,15 @@ public class ApostaController {
 
     @GetMapping
     @Cacheable(value = "listaApostadores")
-    public Page<ApostadorDTO> getApostadores(int pageNumber, int pageSize){
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        return ApostadorDTO.converter(apostaService.listarApostadores(pageable));
-    }
+    public PageApostadorDTO getApostadores(@RequestParam(defaultValue = "0") @PositiveOrZero int page,
+                                           @RequestParam(defaultValue = "10") @Positive @Max(100) int size){
+        Pageable pageable = PageRequest.of(page, size);
 
-    /*public List<Apostador> listarApostadores(){
-        return this.apostaService.listarApostadores();
-    }*/
+        Page<ApostadorDTO> pageDTO = ApostadorDTO.converter(apostaService.listarApostadores(pageable));
+        List<ApostadorDTO> listDTO = pageDTO.getContent();
+
+        return new PageApostadorDTO(listDTO, pageDTO.getTotalElements(), pageDTO.getTotalPages());
+    }
 
     @GetMapping("/{id}")
     public Optional<Apostador> buscarPorId(@PathVariable Long id){
