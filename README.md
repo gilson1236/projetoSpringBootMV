@@ -30,5 +30,7 @@ aleatoriamente. Feito utilizando o java, junto ao Spring Boot.
 
  * Docker Compose
  * AWS
+ * Kafka
+ * Microsserviços
  * Base de dados escolhido para ambiente de produção(Oracle DB, MySQL, Redis, MongoDB, PostgreSQL, etc.)
 
