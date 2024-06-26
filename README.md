@@ -3,6 +3,7 @@
 Projeto Final da Disciplina de Spring Boot do Projeto Cubo.
 
 ## Aposta e Ganhe
+
 Aplicativo que simula um jogo de apostas onde é escolhido um apostador vencedor do jogo, 
 aleatoriamente. Feito utilizando o java, junto ao Spring Boot.
 
@@ -32,5 +33,6 @@ aleatoriamente. Feito utilizando o java, junto ao Spring Boot.
  * AWS
  * Kafka
  * Microsserviços
+ * Autenticação e autorização de usuários 
  * Base de dados escolhido para ambiente de produção(Oracle DB, MySQL, Redis, MongoDB, PostgreSQL, etc.)
 
